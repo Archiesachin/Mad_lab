@@ -1,0 +1,99 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: ProductForm(),
+    );
+  }
+}
+
+class ProductForm extends StatefulWidget {
+  @override
+  _ProductFormState createState() => _ProductFormState();
+}
+
+class _ProductFormState extends State<ProductForm> {
+  String productName = '';
+  double price = 0.0;
+  String selectedType = '';
+  List<String> types = ['Type 1', 'Type 2', 'Type 3']; // Add your types here
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Product Form'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              decoration: InputDecoration(labelText: 'Product Name'),
+              onChanged: (value) {
+                setState(() {
+                  productName = value;
+                });
+              },
+            ),
+            SizedBox(height: 16.0),
+            TextField(
+              decoration: InputDecoration(labelText: 'Price'),
+              keyboardType: TextInputType.number,
+              onChanged: (value) {
+                setState(() {
+                  price = double.tryParse(value) ?? 0.0;
+                });
+              },
+            ),
+            SizedBox(height: 16.0),
+            Text('Select Type:'),
+            Column(
+              children: types
+                  .map(
+                    (type) => RadioListTile(
+                      title: Text(type),
+                      value: type,
+                      groupValue: selectedType,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedType = value as String;
+                        });
+                      },
+                    ),
+                  )
+                  .toList(),
+            ),
+            Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    // Handle 'Back' button logic
+                    // You can navigate back or perform any other action here
+                  },
+                  child: Text('Back'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Handle 'Next' button logic
+                    // You can navigate to the next screen or perform any other action here
+                  },
+                  child: Text('Next'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
